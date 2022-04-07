@@ -1,19 +1,23 @@
 package uniandes.dpoo.proyecto1.modelo;
 
+import java.util.ArrayList;
+
 public class Proyecto {
 	
 	private String nombre;
 	private String descripccion;
 	private String fechaInicio;
 	private String fechaFin;
+	private ArrayList <String> tipoActividades;
 	
 	
-	public Proyecto(String nombre, String descripccion, String fechaInicio, String fechaFin)
+	public Proyecto(String nombre, String descripccion, String fechaInicio, String fechaFin, ArrayList <String> listaTiposActividades)
 	{
 		this.nombre = nombre;
 		this.descripccion = descripccion;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
+		this.tipoActividades = listaTiposActividades;
 		
 	}
 	

@@ -8,45 +8,48 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import uniandes.dpoo.proyecto1.modelo.Proyecto;
 import uniandes.dpoo.proyecto1.modelo.Registro;
 
 public class Aplicacion {
 
-	public static void main(String[] args) 
+	public static void main(String[] args) throws FileNotFoundException, IOException 
 	{
 		// TODO Auto-generated method stub
 
 		Aplicacion consola = new Aplicacion();
-
-
+		consola.ejecutarAplicacion();
 	}
-	
+
 	private Proyecto proyecto;
 
 	private Registro registro;
-	
+
 	public void setRegistro(Registro registro) {
 		this.registro = new Registro();
 	}
-	
+
 	public void ejecutarAplicacion() throws IOException 
 	{
 		System.out.println("Registro proyecto \n");
 		setRegistro(registro);
-		if (registro.verificarProyecto())
+		System.out.println("Registro creado \n");
+		if (registro.verificarProyecto()==true)
 		{
+			System.out.println("Cargando proyecto existente... \n");
 			cargarProyecto(proyecto);
 		}
 		else 
 		{
+			System.out.println("Creando proyecto nuevo... \n");
 			setProyecto(proyecto);
 		}
 	}
-	
 
-	
+
+
 
 
 	public void setProyecto(Proyecto proyecto) throws IOException
@@ -54,11 +57,21 @@ public class Aplicacion {
 		String nombreProyecto = input("Ingrese nombre de Proyecto: ");
 		String descripccionProyecto = input("Ingrese descripccion del Proyecto: ");
 		String fechaInicioProyecto = input("Ingrese fecha de inicio (DD/MM/AAAA): ");
-		String fechaFinalizacionProyecto = input("Ingrese fecha de finalizacion (DD/MM/AAAA): ");
-		this.proyecto = new Proyecto(nombreProyecto, descripccionProyecto, fechaInicioProyecto, fechaFinalizacionProyecto);
-		registro.escribirProyecto(nombreProyecto, descripccionProyecto, fechaInicioProyecto, fechaFinalizacionProyecto);
+		String fechaFinalizacionProyecto = input("Ingrese fecha de finalizacion (DD/MM/AAAA): ");		
+		int numeroActividadesTipo = Integer.parseInt(input("Ingrese cuantos tipos de actividad van a existir: "));
+		ArrayList<String> actividadesTipo = new ArrayList<>(numeroActividadesTipo);
+		for (int pos = 0; pos < numeroActividadesTipo; pos++)
+		{
+			String actividadTipo = input("Ingrese nombre de Actividad "+pos+": ");
+			actividadesTipo.add(pos, actividadTipo);
+		}
+		this.proyecto = new Proyecto(nombreProyecto, descripccionProyecto, fechaInicioProyecto, fechaFinalizacionProyecto, actividadesTipo);
+		registro.escribirProyecto(nombreProyecto, descripccionProyecto, fechaInicioProyecto, fechaFinalizacionProyecto, actividadesTipo);
+
+
+
 	}
-	
+
 	public void cargarProyecto(Proyecto proyecto) throws IOException
 	{
 		BufferedReader br = new BufferedReader(new FileReader("./data/proyecto.txt"));
@@ -75,14 +88,20 @@ public class Aplicacion {
 		System.out.println(linea);
 		String fechaFinalizacionProyecto = linea;
 		
-		this.proyecto = new Proyecto(nombreProyecto, descripccionProyecto, fechaInicioProyecto, fechaFinalizacionProyecto);
+		ArrayList<String> actividadesTipo = new ArrayList<>();
+		int pos = 0;
+		
 		linea = br.readLine();
 		while (linea != null) // Cuando se llegue al final del archivo, linea tendrá el valor null
 		{
-			System.out.println(linea);			
+			System.out.println(linea);
+			actividadesTipo.add(pos, linea);
 			linea = br.readLine();
+			pos ++;
 		}
+		this.proyecto = new Proyecto(nombreProyecto, descripccionProyecto, fechaInicioProyecto, fechaFinalizacionProyecto, actividadesTipo);
 		br.close();
+		System.out.println("\nCargando proyecto exitosamente... \n");
 	}
 
 	public void mostrarMenu()
@@ -94,42 +113,6 @@ public class Aplicacion {
 		System.out.println("4. Agregar participante");
 	}
 
-	private void ejecutarCargarDatos()
-	{
-		File archivoIngredientes = new File("./data/proyecto.txt");
-		File archivoMenu = new File("./data/participantes.txt");
-		File archivoCombos = new File("./data/actividades.txt");
-
-		try 
-		{
-			String ruta = "./data/proyecto.txt";
-			File file = new File(ruta);
-			// Si el archivo no existe es creado
-			if (!file.exists()) 
-			{	
-				String nombreProyecto = input("Ingrese nombre de Proyecto: ");
-				String descripccionProyecto = input("Ingrese descripccion del Proyecto: ");
-				String fechaInicioProyecto = input("Ingrese fecha de inicio (DD/MM/AAAA): ");
-				String fechaFinalizacionProyecto = input("Ingrese fecha de finalizacion (DD/MM/AAAA): ");
-				String contenido = generarTextoFactura();
-				file.createNewFile();
-				FileWriter fw = new FileWriter(file);
-				BufferedWriter bw = new BufferedWriter(fw);
-				bw.write(contenido);
-				bw.close();
-			}
-			else
-			{
-
-			}
-
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
-
-	}
 
 	public String input(String mensaje)
 	{
