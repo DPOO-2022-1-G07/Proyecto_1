@@ -35,22 +35,54 @@ public class Aplicacion {
 	{
 		System.out.println("***BIENVENIDO APP REGISTRO*** \n");
 		setRegistro(registro);
-		System.out.println("Registro creado (nota desarrollo)\n");
+		System.out.println("-Registro creado (nota desarrollo)\n");
 		
 		if (registro.verificarProyecto()==true)
 		{
-			System.out.println("Cargando proyecto existente... \n");
+			System.out.println("-Cargando proyecto existente... \n");
 			cargarProyecto(proyecto);
+			if (registro.verificarParticipantes()==true)
+			{
+				System.out.println("-Cargando participantes existentes... \n");
+				BufferedReader br = new BufferedReader(new FileReader("./data/participantes.txt"));
+				String linea = br.readLine();
+				int contador = 0;
+				while (linea != null) // Cuando se llegue al final del archivo, linea tendrá el valor null
+				{
+					System.out.println(contador+" - "+linea);
+					String[] partes = linea.split(";");
+					String nombreParticipante = partes[0];
+					String correoParticipante = partes[1];
+					proyecto.cargarParticipante(nombreParticipante, correoParticipante);
+					linea = br.readLine();
+					contador ++;
+				}
+				br.close();
+				System.out.println("\n-Participantes cargados exitosamente \n");
+			}
+			else
+			{
+				System.out.println("***ADVERTENCIA - No se han encontrado participantes en el proyecto existente\n");
+			}
 		}
 		else 
 		{
-			System.out.println("Creando proyecto nuevo... \n");
+			System.out.println("-Creando proyecto nuevo... \n");
 			setProyecto(proyecto);
 			if (registro.verificarParticipantes()==false)
 			{
-				System.out.println("Creando participante nuevo... \n");
+				System.out.println("-Creando participante nuevo... \n");
 				addParticipante();
 			}
+		}
+		
+		if (registro.verificarActividades()==true)
+		{
+			System.out.println("-Cargando actividades existentes...\n");
+		}
+		else
+		{
+			System.out.println("-Aun no existen actividades \n");
 		}
 		
 		boolean continuar = true;
@@ -61,30 +93,30 @@ public class Aplicacion {
 				mostrarMenu();
 				int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opción"));
 				if (opcion_seleccionada == 1 && proyecto != null)
-					System.out.println("En construccion... \n");
+					System.out.println("\nEn construccion... \n");
 				else if (opcion_seleccionada == 2 && proyecto != null)
-					System.out.println("En construccion... \n");
+					System.out.println("\nEn construccion... \n");
 				else if (opcion_seleccionada == 3 && proyecto != null)
-					System.out.println("En construccion... \n");
-				else if (opcion_seleccionada == 4 && proyecto != null)
-					System.out.println("En construccion... \n");
+					System.out.println("\nEn construccion... \n");
+				else if (opcion_seleccionada == 4 && proyecto != null)					
+					addParticipante();
 				else if (opcion_seleccionada == 5)
 				{
-					System.out.println("Saliendo de la aplicacion ...");
+					System.out.println("\n-Saliendo de la aplicacion ...");
 					continuar = false;
 				}
 				else if (proyecto == null)
 				{
-					System.out.println("ERROR cargando archivos.");
+					System.out.println("***ERROR cargando archivos.");
 				}
 				else
 				{
-					System.out.println("Por favor seleccione una opcion valida.");
+					System.out.println("\nPor favor seleccione una opcion valida.");
 				}
 			}
 			catch (NumberFormatException e)
 			{
-				System.out.println("Debe seleccionar uno de los numeros de las opciones.");
+				System.out.println("\nDebe seleccionar uno de los numeros de las opciones.");
 			}
 		}
 	
@@ -137,21 +169,22 @@ public class Aplicacion {
 		linea = br.readLine();
 		while (linea != null) // Cuando se llegue al final del archivo, linea tendrá el valor null
 		{
-			System.out.println(linea);
+			System.out.println(pos+" - "+linea);
 			actividadesTipo.add(pos, linea);
 			linea = br.readLine();
 			pos ++;
 		}
 		this.proyecto = new Proyecto(nombreProyecto, descripccionProyecto, fechaInicioProyecto, fechaFinalizacionProyecto, actividadesTipo);
 		br.close();
-		System.out.println("\nProyecto cargado exitosamente... \n");
+		System.out.println("\n-Proyecto cargado exitosamente! \n");
 	}
 	
 	public void addParticipante() throws IOException
 	{
-		String nombreParticipante = input("Ingrese nombre de lParticipante: ");
+		String nombreParticipante = input("Ingrese nombre del Participante: ");
 		String correoParticipante = input("Ingrese correo del Participante: ");
 		registro.escribirParticipante(nombreParticipante, correoParticipante);
+		proyecto.cargarParticipante(nombreParticipante, correoParticipante);
 	}
 
 	public void mostrarMenu()
