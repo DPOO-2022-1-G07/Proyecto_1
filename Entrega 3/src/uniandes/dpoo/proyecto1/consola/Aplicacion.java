@@ -229,7 +229,7 @@ public class Aplicacion {
 		int tipoID = Integer.parseInt(input("\nIngrese el tipo de la Actividad: "));
 		String fecha = input("Ingrese fecha en la que se realizo la Actividad (AAAA-MM-DD): ");
 		double horaInicio = Double.parseDouble(input("Ingrese hora de inicio: "));
-		double horaFin = Double.parseDouble(input("Ingrese de finalizacion: "));
+		double horaFin = Double.parseDouble(input("Ingrese hora de finalizacion: "));
 		double duracion = Double.parseDouble(input("Ingrese duracion: "));
 		
 		System.out.println("\nLISTA DE PARTICIPANTES:");
