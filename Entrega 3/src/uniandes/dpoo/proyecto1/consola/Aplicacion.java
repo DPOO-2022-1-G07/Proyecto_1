@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import uniandes.dpoo.proyecto1.modelo.Participante;
 import uniandes.dpoo.proyecto1.modelo.Proyecto;
 import uniandes.dpoo.proyecto1.modelo.Registro;
 
@@ -79,10 +80,31 @@ public class Aplicacion {
 		if (registro.verificarActividades()==true)
 		{
 			System.out.println("-Cargando actividades existentes...\n");
+			BufferedReader br = new BufferedReader(new FileReader("./data/actividades.txt"));
+			String linea = br.readLine();
+			int contador = 0;
+			while (linea != null) // Cuando se llegue al final del archivo, linea tendrá el valor null
+			{
+				System.out.println(contador+" - "+linea);
+				String[] partes = linea.split(";");
+				String titulo = partes[0];
+				String descripccion = partes[1];
+				int tipoID = Integer.parseInt(partes[2]);
+				String fecha = partes[3]; 
+				double horaInicio = Double.parseDouble(partes[4]);
+				double horaFin = Double.parseDouble(partes[5]); 
+				double duracion = Double.parseDouble(partes[6]); 
+				int participanteID = Integer.parseInt(partes[7]);
+				proyecto.cargarActividad(titulo, descripccion, tipoID, fecha, horaInicio, horaFin, duracion, participanteID);
+				linea = br.readLine();
+				contador ++;
+			}
+			br.close();
+			System.out.println("\n-"+contador +" - Actividades cargadas exitosamente \n");
 		}
 		else
 		{
-			System.out.println("-Aun no existen actividades \n");
+			System.out.println("\n-Aun no existen actividades \n");
 		}
 		
 		boolean continuar = true;
@@ -93,7 +115,7 @@ public class Aplicacion {
 				mostrarMenu();
 				int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opción"));
 				if (opcion_seleccionada == 1 && proyecto != null)
-					System.out.println("\nEn construccion... \n");
+					addActividad();
 				else if (opcion_seleccionada == 2 && proyecto != null)
 					System.out.println("\nEn construccion... \n");
 				else if (opcion_seleccionada == 3 && proyecto != null)
@@ -185,6 +207,41 @@ public class Aplicacion {
 		String correoParticipante = input("Ingrese correo del Participante: ");
 		registro.escribirParticipante(nombreParticipante, correoParticipante);
 		proyecto.cargarParticipante(nombreParticipante, correoParticipante);
+	}
+	
+	public void addActividad() throws IOException 
+	{
+		String titulo = input("Ingrese titulo de la Actividad: ");
+		String descripccion = input("Ingrese descripccion de la Actividad: ");
+		
+		System.out.println("\nTIPOS DE ACTIVIDADES:");
+		ArrayList <String> listaActividades = proyecto.getTipoActividades();
+		int posTipos = 0;
+		for (String tipo:listaActividades)
+		{
+			System.out.println(posTipos+"- " +tipo);
+			posTipos++;
+		}
+		
+		int tipoID = Integer.parseInt(input("\nIngrese el tipo de la Actividad: "));
+		String fecha = input("Ingrese fecha en la que se realizo la Actividad (DD/MM/AAAA): ");
+		double horaInicio = Double.parseDouble(input("Ingrese hora de inicio: "));
+		double horaFin = Double.parseDouble(input("Ingrese de finalizacion: "));
+		double duracion = Double.parseDouble(input("Ingrese duracion: "));
+		
+		System.out.println("\nLISTA DE PARTICIPANTES:");
+		ArrayList<Participante> listaParticipantes = proyecto.getParticipantes();
+		int posParticipante = 0;
+		for (Participante elParticipante:listaParticipantes)
+		{
+			System.out.println(posParticipante+"- " + elParticipante.getNombre());
+			posParticipante++;
+		}
+		
+		int participanteID = Integer.parseInt(input("Ingrese id de quien realizo la Actividad: "));
+		
+		registro.escribirActividades(titulo, descripccion, tipoID, fecha, horaInicio, horaFin, duracion, participanteID);
+		proyecto.cargarActividad(titulo, descripccion, tipoID, fecha, horaInicio, horaFin, duracion, participanteID);
 	}
 
 	public void mostrarMenu()

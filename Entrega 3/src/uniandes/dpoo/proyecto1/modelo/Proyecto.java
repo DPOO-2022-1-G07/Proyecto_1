@@ -10,6 +10,7 @@ public class Proyecto {
 	private String fechaFin;
 	private ArrayList <String> tipoActividades;
 	private ArrayList<Participante> participantes;
+	private ArrayList<Actividad> actividades;
 	
 	
 	public Proyecto(String nombre, String descripccion, String fechaInicio, String fechaFin, ArrayList <String> listaTiposActividades)
@@ -20,6 +21,7 @@ public class Proyecto {
 		this.fechaFin = fechaFin;
 		this.tipoActividades = listaTiposActividades;
 		this.participantes = new ArrayList<>();
+		this.actividades = new ArrayList<>();
 		
 	}
 	
@@ -48,18 +50,26 @@ public class Proyecto {
 		return tipoActividades;
 	}
 	
+	public ArrayList<Participante> getParticipantes()
+	{
+		return participantes;
+	}
+	
 	public void cargarParticipante(String participante, String correo)
 	{
 		Participante elParticipante = new Participante (participante, correo);
 		participantes.add(elParticipante);
 	}
 	
-
-
-
-
-
-
+	public void cargarActividad(String titulo, String descripccion, int tipoID, String fecha, double horaInicio,
+			double horaFin, double duracion , int participanteID)
+	{
+		//aqui hacen falta los "defaults" en caso que el input sea vacio.
+		
+		Actividad laActividad = new Actividad (titulo, descripccion, tipoID, fecha,
+				horaInicio, horaFin, duracion, participanteID);
+		actividades.add(laActividad);
+	}
 
 
 

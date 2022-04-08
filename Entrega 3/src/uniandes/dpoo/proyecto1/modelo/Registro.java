@@ -88,13 +88,17 @@ public class Registro {
 		return (existe);
 	}
 
-	public void escribirActividades(String nombre, String descripccion, String fechaInicio, String fechaFin) throws IOException
+	public void escribirActividades(String titulo, String descripccion, int tipoID, String fecha, double horaInicio,
+			double horaFin, double duracion , int participanteID) throws IOException
 	{
-		FileWriter fw = new FileWriter(archivoActividades);
+		FileWriter fw = new FileWriter(archivoActividades, true);
 		BufferedWriter bw = new BufferedWriter(fw);
-		String contenido = "falta";
-		bw.write(contenido);
+		String contenido = titulo + ";" + descripccion + ";" + tipoID + ";" + fecha + ";" 
+		+ horaInicio + ";" + horaFin + ";" + duracion + ";" + participanteID;
+		bw.append(contenido);
+		bw.newLine();
 		bw.close();
+		System.out.println("\n"+contenido);
 	}
 
 }
