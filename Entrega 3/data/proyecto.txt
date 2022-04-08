@@ -1,6 +1,7 @@
-Nombre: no
-Descripccion: funcoino
-Fecha Inicio: hmm
-Fecha Finalizacion: pq
-no
-funciona
+Nombre: intento ahora si
+Descripccion: este si deberia funcionar
+Fecha Inicio: 07/04/2022
+Fecha Finalizacion: 07/04/2022
+analisis
+disenio
+implementacion

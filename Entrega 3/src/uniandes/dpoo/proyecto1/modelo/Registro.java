@@ -16,9 +16,10 @@ public class Registro {
 
 	public boolean verificarProyecto() throws IOException
 	{
-
+		boolean existe = archivoProyecto.exists();
+		System.out.println(existe);
 		// Si el archivo no existe es creado
-		if (!archivoProyecto.exists()) 
+		if (archivoProyecto.exists()==false) 
 		{
 			archivoProyecto.createNewFile();
 			FileWriter fw = new FileWriter(archivoProyecto);
@@ -26,7 +27,7 @@ public class Registro {
 			bw.close();
 
 		}
-		return (!archivoProyecto.exists());
+		return (existe);
 	}
 
 	public void escribirProyecto(String nombre, String descripccion, String fechaInicio, String fechaFin, ArrayList<String> listaTiposActividades) throws IOException
