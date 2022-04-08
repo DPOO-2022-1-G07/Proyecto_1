@@ -49,9 +49,9 @@ public class Registro {
 	
 	public boolean verificarParticipantes() throws IOException
 	{
-
+		boolean existe = archivoParticipantes.exists();
 		// Si el archivo no existe es creado
-		if (!archivoParticipantes.exists()) 
+		if (archivoParticipantes.exists()==false) 
 		{
 			archivoParticipantes.createNewFile();
 			FileWriter fw = new FileWriter(archivoParticipantes);
@@ -59,16 +59,17 @@ public class Registro {
 			bw.close();
 
 		}
-		return (!archivoParticipantes.exists());
+		return (existe);
 	}
 
-	public void escribirParticipantes(String nombre, String descripccion, String fechaInicio, String fechaFin) throws IOException
+	public void escribirParticipante(String nombre, String correo) throws IOException
 	{
 		FileWriter fw = new FileWriter(archivoParticipantes);
 		BufferedWriter bw = new BufferedWriter(fw);
-		String contenido = "falta";
+		String contenido = nombre + ";" + correo;
 		bw.write(contenido);
 		bw.close();
+		System.out.println(contenido);
 	}
 
 	public boolean verificarActividades() throws IOException

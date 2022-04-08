@@ -40,15 +40,13 @@ public class Proyecto {
 	{
 		return fechaFin;
 	}
-	
-	
-	public String crearArchivoProyecto()
+
+	public ArrayList <String> getTipoActividades() 
 	{
-		String contenido = "Nombre: "+ getNombre() +"\n Descripccion: "+ getDescripccion()
-		+"\n Fecha Inicio: "+ getFechaInicio()+"\n Fecha Fin: "+ getFechaFin();
-		return contenido;
-		
+		return tipoActividades;
 	}
+	
+	
 
 
 

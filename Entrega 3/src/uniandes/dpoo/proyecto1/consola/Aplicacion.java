@@ -33,9 +33,10 @@ public class Aplicacion {
 
 	public void ejecutarAplicacion() throws IOException 
 	{
-		System.out.println("Registro proyecto \n");
+		System.out.println("***BIENVENIDO APP REGISTRO*** \n");
 		setRegistro(registro);
-		System.out.println("Registro creado \n");
+		System.out.println("Registro creado (nota desarrollo)\n");
+		
 		if (registro.verificarProyecto()==true)
 		{
 			System.out.println("Cargando proyecto existente... \n");
@@ -45,7 +46,48 @@ public class Aplicacion {
 		{
 			System.out.println("Creando proyecto nuevo... \n");
 			setProyecto(proyecto);
+			if (registro.verificarParticipantes()==false)
+			{
+				System.out.println("Creando participante nuevo... \n");
+				addParticipante();
+			}
 		}
+		
+		boolean continuar = true;
+		while (continuar)
+		{
+			try
+			{
+				mostrarMenu();
+				int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opción"));
+				if (opcion_seleccionada == 1 && proyecto != null)
+					System.out.println("En construccion... \n");
+				else if (opcion_seleccionada == 2 && proyecto != null)
+					System.out.println("En construccion... \n");
+				else if (opcion_seleccionada == 3 && proyecto != null)
+					System.out.println("En construccion... \n");
+				else if (opcion_seleccionada == 4 && proyecto != null)
+					System.out.println("En construccion... \n");
+				else if (opcion_seleccionada == 5)
+				{
+					System.out.println("Saliendo de la aplicacion ...");
+					continuar = false;
+				}
+				else if (proyecto == null)
+				{
+					System.out.println("ERROR cargando archivos.");
+				}
+				else
+				{
+					System.out.println("Por favor seleccione una opcion valida.");
+				}
+			}
+			catch (NumberFormatException e)
+			{
+				System.out.println("Debe seleccionar uno de los numeros de las opciones.");
+			}
+		}
+	
 	}
 
 
@@ -87,6 +129,7 @@ public class Aplicacion {
 		linea = br.readLine();
 		System.out.println(linea);
 		String fechaFinalizacionProyecto = linea;
+		System.out.println("\nTipos de actividades existentes: \n");
 		
 		ArrayList<String> actividadesTipo = new ArrayList<>();
 		int pos = 0;
@@ -101,7 +144,14 @@ public class Aplicacion {
 		}
 		this.proyecto = new Proyecto(nombreProyecto, descripccionProyecto, fechaInicioProyecto, fechaFinalizacionProyecto, actividadesTipo);
 		br.close();
-		System.out.println("\nCargando proyecto exitosamente... \n");
+		System.out.println("\nProyecto cargado exitosamente... \n");
+	}
+	
+	public void addParticipante() throws IOException
+	{
+		String nombreParticipante = input("Ingrese nombre de lParticipante: ");
+		String correoParticipante = input("Ingrese correo del Participante: ");
+		registro.escribirParticipante(nombreParticipante, correoParticipante);
 	}
 
 	public void mostrarMenu()
@@ -111,6 +161,7 @@ public class Aplicacion {
 		System.out.println("2. Iniciar cronometro");
 		System.out.println("3. Generar reporte");
 		System.out.println("4. Agregar participante");
+		System.out.println("5. Salir de aplicacion");
 	}
 
 
