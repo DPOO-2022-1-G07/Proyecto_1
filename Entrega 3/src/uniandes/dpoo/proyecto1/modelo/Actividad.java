@@ -1,5 +1,7 @@
 package uniandes.dpoo.proyecto1.modelo;
 
+import java.time.LocalDateTime;
+
 public class Actividad {
 	
 	private String titulo;
@@ -55,5 +57,6 @@ public class Actividad {
 	public int getParticipanteID() {
 		return participanteID;
 	}
+	
 
 }

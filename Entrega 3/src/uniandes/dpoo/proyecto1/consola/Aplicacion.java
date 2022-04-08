@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 import uniandes.dpoo.proyecto1.modelo.Participante;
 import uniandes.dpoo.proyecto1.modelo.Proyecto;
@@ -19,7 +20,9 @@ public class Aplicacion {
 	public static void main(String[] args) throws FileNotFoundException, IOException 
 	{
 		// TODO Auto-generated method stub
-
+		System.out.println(LocalDateTime.now().toLocalTime());
+		System.out.println((LocalDateTime.now()).toLocalDate());
+		
 		Aplicacion consola = new Aplicacion();
 		consola.ejecutarAplicacion();
 	}
@@ -224,7 +227,7 @@ public class Aplicacion {
 		}
 		
 		int tipoID = Integer.parseInt(input("\nIngrese el tipo de la Actividad: "));
-		String fecha = input("Ingrese fecha en la que se realizo la Actividad (DD/MM/AAAA): ");
+		String fecha = input("Ingrese fecha en la que se realizo la Actividad (AAAA-MM-DD): ");
 		double horaInicio = Double.parseDouble(input("Ingrese hora de inicio: "));
 		double horaFin = Double.parseDouble(input("Ingrese de finalizacion: "));
 		double duracion = Double.parseDouble(input("Ingrese duracion: "));
