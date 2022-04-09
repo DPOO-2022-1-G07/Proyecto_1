@@ -1,0 +1,7 @@
+Nombre: Prueba numero 1 asus juan
+Descripccion: primer pull que hice
+Fecha Inicio: 08/04/2022
+Fecha Finalizacion: 09/04/2022
+analisis
+diseño
+implementacion

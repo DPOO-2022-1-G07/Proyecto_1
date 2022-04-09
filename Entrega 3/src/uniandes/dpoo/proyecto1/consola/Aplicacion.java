@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
+import uniandes.dpoo.proyecto1.modelo.Actividad;
 import uniandes.dpoo.proyecto1.modelo.Participante;
 import uniandes.dpoo.proyecto1.modelo.Proyecto;
 import uniandes.dpoo.proyecto1.modelo.Registro;
@@ -122,7 +123,7 @@ public class Aplicacion {
 				else if (opcion_seleccionada == 2 && proyecto != null)
 					System.out.println("\nEn construccion... \n");
 				else if (opcion_seleccionada == 3 && proyecto != null)
-					System.out.println("\nEn construccion... \n");
+					cargarReporte();
 				else if (opcion_seleccionada == 4 && proyecto != null)					
 					addParticipante();
 				else if (opcion_seleccionada == 5)
@@ -146,9 +147,6 @@ public class Aplicacion {
 		}
 	
 	}
-
-
-
 
 
 	public void setProyecto(Proyecto proyecto) throws IOException
@@ -228,8 +226,8 @@ public class Aplicacion {
 		
 		int tipoID = Integer.parseInt(input("\nIngrese el tipo de la Actividad: "));
 		String fecha = input("Ingrese fecha en la que se realizo la Actividad (AAAA-MM-DD): ");
-		double horaInicio = Double.parseDouble(input("Ingrese hora de inicio: "));
-		double horaFin = Double.parseDouble(input("Ingrese hora de finalizacion: "));
+		double horaInicio = Double.parseDouble(input("Ingrese hora de inicio: (formato 24 horas sin ':')"));
+		double horaFin = Double.parseDouble(input("Ingrese hora de finalizacion(formato 24 horas sin ':')"));
 		double duracion = Double.parseDouble(input("Ingrese duracion: "));
 		
 		System.out.println("\nLISTA DE PARTICIPANTES:");
@@ -256,6 +254,21 @@ public class Aplicacion {
 		System.out.println("4. Agregar participante");
 		System.out.println("5. Salir de aplicacion");
 	}
+	
+	
+	
+	
+	private void cargarReporte(){
+		ArrayList<Participante> listaParticipantes = proyecto.getParticipantes();
+		int posParticipante = 0;
+		for (Participante elParticipante:listaParticipantes)
+		{
+			System.out.println(posParticipante+"- " + elParticipante.getNombre());
+			posParticipante++;
+		}
+		int id = Integer.parseInt(input("Ingrese el ID del participante para el reporte"));
+		proyecto.ejecutarReporte(id);
+	}
 
 
 	public String input(String mensaje)
@@ -273,6 +286,8 @@ public class Aplicacion {
 		}
 		return null;
 	}
+	
+	
 
 
 }

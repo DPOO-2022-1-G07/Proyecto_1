@@ -11,6 +11,7 @@ public class Proyecto {
 	private ArrayList <String> tipoActividades;
 	private ArrayList<Participante> participantes;
 	private ArrayList<Actividad> actividades;
+	Reporte elReporte = new Reporte();
 	
 	
 	public Proyecto(String nombre, String descripccion, String fechaInicio, String fechaFin, ArrayList <String> listaTiposActividades)
@@ -55,6 +56,11 @@ public class Proyecto {
 		return participantes;
 	}
 	
+	public ArrayList<Actividad> getActividades()
+	{
+		return actividades;
+	}
+	
 	public void cargarParticipante(String participante, String correo)
 	{
 		Participante elParticipante = new Participante (participante, correo);
@@ -69,6 +75,14 @@ public class Proyecto {
 		Actividad laActividad = new Actividad (titulo, descripccion, tipoID, fecha,
 				horaInicio, horaFin, duracion, participanteID);
 		actividades.add(laActividad);
+	}
+	
+	
+	
+	public void ejecutarReporte(int id)
+	{
+		
+		elReporte.ejecutarReporte(id, actividades, tipoActividades, participantes);
 	}
 
 

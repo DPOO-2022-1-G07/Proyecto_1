@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.Duration;
 import java.util.ArrayList;
 
 public class Registro {
@@ -100,6 +101,6 @@ public class Registro {
 		bw.close();
 		System.out.println("\n"+contenido);
 	}
-
+	
 }
 
