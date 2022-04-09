@@ -31,6 +31,7 @@ public class Stopwatch {
 		stop();
 		totalRunTime = Duration.ZERO;
 	}
+	
 
 	public boolean isRunning() {
 		return startTime != null;

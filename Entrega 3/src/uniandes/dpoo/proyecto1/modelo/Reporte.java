@@ -14,20 +14,20 @@ public class Reporte {
 
 	public void ejecutarReporte(int id, ArrayList<Actividad> actividades, ArrayList <String> tipoActividades, ArrayList<Participante> participantes)
 	{	
-		Map<Integer,Double> mapaTipoAct = new HashMap<>();
+		Map<Integer,Integer> mapaTipoAct = new HashMap<>();
 		ArrayList<String> fechas = new ArrayList<>();
-		double total=0.0;
+		int total=0;
 		for (int i=0;i<tipoActividades.size();i++)
 		{
-			mapaTipoAct.put(i, 0.0);
+			mapaTipoAct.put(i, 0);
 		}
 		for  ( Actividad laActividad: actividades)
 		{
 			if (id == laActividad.getParticipanteID())
 			{ 
-				Double duracion = laActividad.getDuracion();
+				int duracion = laActividad.getDuracion();
 				total = total + duracion;
-				Double duracionAcumulado = mapaTipoAct.get(laActividad.getTipoID());
+				int duracionAcumulado = mapaTipoAct.get(laActividad.getTipoID());
 				mapaTipoAct.replace(laActividad.getTipoID(), duracionAcumulado+duracion);
 				if ((fechas.contains(laActividad.getFecha()))==false)
 				{

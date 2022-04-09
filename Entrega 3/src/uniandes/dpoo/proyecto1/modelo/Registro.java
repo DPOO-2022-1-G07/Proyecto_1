@@ -89,8 +89,8 @@ public class Registro {
 		return (existe);
 	}
 
-	public void escribirActividades(String titulo, String descripccion, int tipoID, String fecha, double horaInicio,
-			double horaFin, double duracion , int participanteID) throws IOException
+	public void escribirActividades(String titulo, String descripccion, int tipoID, String fecha, String horaInicio,
+			String horaFin, int duracion , int participanteID) throws IOException
 	{
 		FileWriter fw = new FileWriter(archivoActividades, true);
 		BufferedWriter bw = new BufferedWriter(fw);

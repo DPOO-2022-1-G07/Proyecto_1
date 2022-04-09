@@ -67,8 +67,8 @@ public class Proyecto {
 		participantes.add(elParticipante);
 	}
 	
-	public void cargarActividad(String titulo, String descripccion, int tipoID, String fecha, double horaInicio,
-			double horaFin, double duracion , int participanteID)
+	public void cargarActividad(String titulo, String descripccion, int tipoID, String fecha, String horaInicio,
+			String horaFin, int duracion , int participanteID)
 	{
 		//aqui hacen falta los "defaults" en caso que el input sea vacio.
 		

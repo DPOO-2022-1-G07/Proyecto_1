@@ -8,13 +8,13 @@ public class Actividad {
 	private String descripccion;
 	private int tipoID;
 	private String fecha;
-	private double horaInicio;
-	private double horaFin;
-	private double duracion;
+	private String horaInicio;
+	private String horaFin;
+	private int duracion;
 	private int participanteID;
 	
-	public Actividad(String titulo, String descripccion, int tipoID, String fecha, double horaInicio,
-					double horaFin, double duracion , int participanteID)
+	public Actividad(String titulo, String descripccion, int tipoID, String fecha, String horaInicio,
+			String horaFin, int duracion , int participanteID)
 	{
 		this.titulo = titulo;
 		this.descripccion = descripccion;
@@ -42,15 +42,15 @@ public class Actividad {
 		return fecha;
 	}
 
-	public double getHoraInicio() {
+	public String getHoraInicio() {
 		return horaInicio;
 	}
 
-	public double getHoraFin() {
+	public String getHoraFin() {
 		return horaFin;
 	}
 
-	public double getDuracion() {
+	public int getDuracion() {
 		return duracion;
 	}
 
